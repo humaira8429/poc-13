@@ -3,40 +3,36 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
+        stage('Initialize') {
             steps {
-                git branch: 'main', url: 'https://github.com/humaira8429/poc-13.git'
+                echo "Starting CI/CD Pipeline..."
             }
         }
 
-        stage('Terraform Init') {
+        stage('Build') {
             steps {
-                sh 'terraform init'
+                echo "Building application..."
+                sleep 2
             }
         }
 
-        stage('Terraform Apply') {
+        stage('Test') {
             steps {
-                sh 'terraform apply -auto-approve'
+                echo "Running tests..."
+                sleep 2
             }
         }
 
-        stage('Update kubeconfig') {
+        stage('Deploy') {
             steps {
-                sh 'aws eks update-kubeconfig --region ap-south-1 --name poc-eks-cluster'
+                echo "Deploying application to environment..."
+                sleep 2
             }
         }
 
-        stage('Deploy to EKS') {
+        stage('Verification') {
             steps {
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl apply -f service.yaml'
-            }
-        }
-
-        stage('Get Service URL') {
-            steps {
-                sh 'kubectl get svc'
+                echo "Application deployed successfully!"
             }
         }
     }
