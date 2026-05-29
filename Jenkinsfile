@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/humaira8429/poc-13.git'
+                git branch: 'main', url: 'https://github.com/humaira8429/poc-13.git'
             }
         }
 
